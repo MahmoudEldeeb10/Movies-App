@@ -9,6 +9,10 @@ class MoviesApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return MaterialApp();
+    return MaterialApp(
+      title: 'Movies App',
+      theme: ThemeData(primarySwatch: Colors.blue),
+      home: const Scaffold(body: Center(child: Text('Welcome to Movies App'))),
+    );
   }
 }
