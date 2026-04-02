@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:movies_app/features/movies/presentation/view/movies_view.dart';
 
 void main() {
   runApp(const MoviesApp());
@@ -9,10 +10,6 @@ class MoviesApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(
-      title: 'Movies App',
-      theme: ThemeData(primarySwatch: Colors.blue),
-      home: const Scaffold(body: Center(child: Text('Welcome to Movies App'))),
-    );
+    return MaterialApp(debugShowCheckedModeBanner: false, home: MoviesView());
   }
 }
