@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:movies_app/features/movie_details/presentation/view/movies_details_view.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:movies_app/features/movies/presentation/manager/cubit/movie_cubit.dart';
 import 'package:movies_app/features/movies/presentation/view/movies_view.dart';
 
 void main() {
@@ -11,12 +12,9 @@ class MoviesApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(
-      debugShowCheckedModeBanner: false,
-      routes: {
-        '/': (_) => const MoviesView(),
-        '/details': (_) => const MoviesDetailsView(),
-      },
+    return BlocProvider(
+      create: (context) => MoviesCubit(),
+      child: MaterialApp(debugShowCheckedModeBanner: false, home: MoviesView()),
     );
   }
 }
