@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:movies_app/features/movie_details/presentation/view/movies_details_view.dart';
 import 'package:movies_app/features/movies/presentation/view/movies_view.dart';
 
 void main() {
@@ -10,6 +11,12 @@ class MoviesApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(debugShowCheckedModeBanner: false, home: MoviesView());
+    return MaterialApp(
+      debugShowCheckedModeBanner: false,
+      routes: {
+        '/': (_) => const MoviesView(),
+        '/details': (_) => const MoviesDetailsView(),
+      },
+    );
   }
 }
