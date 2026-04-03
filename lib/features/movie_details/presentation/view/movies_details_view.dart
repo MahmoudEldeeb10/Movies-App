@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:movies_app/constants.dart';
 import 'package:movies_app/features/movie_details/presentation/view/widgets/custom_text_button.dart';
 import 'package:movies_app/features/movie_details/presentation/view/widgets/movie_details.dart';
-import 'package:movies_app/features/movies/presentation/view/widgets/movie_card.dart';
 
 class MoviesDetailsView extends StatelessWidget {
   const MoviesDetailsView({super.key});
