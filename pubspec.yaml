@@ -30,8 +30,10 @@ environment:
 dependencies:
   cached_network_image: ^3.4.1
   cupertino_icons: ^1.0.8
+  dio: ^5.9.2
   flutter:
     sdk: flutter
+  flutter_bloc: ^9.1.1
   flutter_native_splash: ^2.4.7
 
 dev_dependencies:
