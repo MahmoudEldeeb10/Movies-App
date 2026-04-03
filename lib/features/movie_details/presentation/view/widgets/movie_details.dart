@@ -2,9 +2,12 @@ import 'package:flutter/material.dart';
 import 'package:movies_app/constants.dart';
 import 'package:movies_app/features/movie_details/presentation/view/widgets/movie_details_card.dart';
 import 'package:movies_app/features/movie_details/presentation/view/widgets/movie_details_column.dart';
+import 'package:movies_app/features/movies/data/models/movie_model.dart';
 
 class MovieDetails extends StatelessWidget {
-  const MovieDetails({super.key});
+  final MovieModel movie;
+
+  const MovieDetails({super.key, required this.movie});
 
   @override
   Widget build(BuildContext context) {
@@ -13,17 +16,13 @@ class MovieDetails extends StatelessWidget {
         Row(
           crossAxisAlignment: CrossAxisAlignment.end,
           children: [
-            MovieDetailsCard(),
+            MovieDetailsCard(movie: movie),
             SizedBox(width: 16),
-            MovieDetailsColumn(),
+            MovieDetailsColumn(movie: movie),
           ],
         ),
-
         SizedBox(height: 22),
-        Text(
-          'overview lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.',
-          style: AppTextStyles.subtitle,
-        ),
+        Text(movie.overview, style: AppTextStyles.subtitle),
       ],
     );
   }
