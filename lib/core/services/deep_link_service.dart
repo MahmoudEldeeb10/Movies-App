@@ -10,12 +10,41 @@ class DeepLinkService {
   static final GlobalKey<NavigatorState> navigatorKey =
       GlobalKey<NavigatorState>();
 
-  // ✅ نفس الـ config بتاع MovieService
   static final _dio = Dio();
   static const _baseUrl = 'https://api.themoviedb.org/3';
   static const _apiKey = 'a9ad3393eba6ee3461adb160f3cfd2dd';
 
+  // ✅ Setup Dio logging - debug only
+  static void _setupDioLogging() {
+    if (kDebugMode) {
+      _dio.interceptors.add(
+        InterceptorsWrapper(
+          onRequest: (options, handler) {
+            debugPrint('┌─────────────────────────────────');
+            debugPrint('[API] REQUEST: ${options.method} ${options.uri}');
+            debugPrint('[API] HEADERS: ${options.headers}');
+            debugPrint('└─────────────────────────────────');
+            handler.next(options);
+          },
+          onResponse: (response, handler) {
+            debugPrint('┌─────────────────────────────────');
+            debugPrint('[API] RESPONSE: ${response.statusCode}');
+            debugPrint('[API] DATA: ${response.data}');
+            debugPrint('└─────────────────────────────────');
+            handler.next(response);
+          },
+          onError: (error, handler) {
+            debugPrint('[API] ERROR: ${error.message}');
+            handler.next(error);
+          },
+        ),
+      );
+    }
+  }
+
   static Future<void> initialize() async {
+    _setupDioLogging(); // ✅
+
     // Cold start
     try {
       final initialLink = await _channel.invokeMethod<String>('getInitialLink');
@@ -66,7 +95,6 @@ class DeepLinkService {
             return;
           }
 
-          // ✅ نأخد الـ context تاني بعد الـ await عشان يكون valid
           final ctx = navigatorKey.currentContext;
           if (ctx == null) return;
 
@@ -76,7 +104,6 @@ class DeepLinkService {
     }
   }
 
-  // ✅ Fetch حقيقي من TMDB
   static Future<MovieModel?> _fetchMovieById(int id) async {
     try {
       final response = await _dio.get(
@@ -94,6 +121,7 @@ class DeepLinkService {
     _channel.setMethodCallHandler(null);
   }
 
+  // ✅ Log deep link - debug only
   static void _logDeepLink(String message) {
     if (kDebugMode) debugPrint('[DeepLink] $message');
   }

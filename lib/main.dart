@@ -1,15 +1,21 @@
-// main.dart
+import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:movies_app/core/services/deep_link_service.dart';
+import 'package:movies_app/core/services/notification_service.dart';
 import 'package:movies_app/features/movie_details/presentation/view/movies_details_view.dart';
 import 'package:movies_app/features/movies/data/models/movie_model.dart';
 import 'package:movies_app/features/movies/presentation/manager/cubit/movie_cubit.dart';
 import 'package:movies_app/features/movies/presentation/view/movies_view.dart';
-
+import 'package:movies_app/firebase_options.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
+  await Firebase.initializeApp(options: DefaultFirebaseOptions.currentPlatform);
+
+  // Initialize Notification Service
+  await NotificationService().init();
+
   runApp(const MoviesApp());
 }
 
@@ -46,7 +52,6 @@ class _MoviesAppState extends State<MoviesApp> {
         routes: {'/movies': (context) => const MoviesView()},
         onGenerateRoute: (settings) {
           if (settings.name == '/movie-details') {
-            // هنا MovieModel هيجيلنا من DeepLink أو من داخل التطبيق
             final movie = settings.arguments as MovieModel;
 
             return MaterialPageRoute(
