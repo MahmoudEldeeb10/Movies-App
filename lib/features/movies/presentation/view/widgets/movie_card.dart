@@ -1,6 +1,5 @@
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
-import 'package:movies_app/features/movie_details/presentation/view/movies_details_view.dart';
 import 'package:movies_app/features/movies/data/models/movie_model.dart';
 
 class MovieCard extends StatelessWidget {
@@ -12,12 +11,7 @@ class MovieCard extends StatelessWidget {
   Widget build(BuildContext context) {
     return GestureDetector(
       onTap: () {
-        Navigator.push(
-          context,
-          MaterialPageRoute(
-            builder: (context) => MoviesDetailsView(movie: movie),
-          ),
-        );
+        Navigator.pushNamed(context, '/movie-details', arguments: movie);
       },
       child: ClipRRect(
         borderRadius: BorderRadius.circular(12),
